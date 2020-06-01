@@ -32,33 +32,31 @@ const minLength = (len) => (val) => val && (val.length >= len);
     function RenderComments({comments, postComment, dishId}) {
         const comment = comments.map((c) => {
             return(
-                <div key={c.id}>
-                    <ul class="list-unstyled">
-                        <Fade in>
-                            <li>
-                                <p>{c.comment}</p>
-                                <p>-- {c.author},
-                                &nbsp; 
-                                {new Intl.DateTimeFormat('en-US', 
-                                    { year: 'numeric', 
-                                        month: 'short', 
-                                        day: '2-digit'
-                                    }).format(new Date(Date.parse(c.date)))}
-                                </p>
-                            </li>
-                        </Fade>
-                    </ul>
-                </div>
+                <Fade in>
+                    <li>
+                        <p>{c.comment}</p>
+                        <p>-- {c.author},
+                        &nbsp; 
+                        {new Intl.DateTimeFormat('en-US', 
+                            { year: 'numeric', 
+                                month: 'short', 
+                                day: '2-digit'
+                            }).format(new Date(Date.parse(c.date)))}
+                        </p>
+                    </li>
+                </Fade>
             );
         })
         if (comments!=null)
             return(
                 <div>
                     <h4>Comments</h4>
-                    <Stagger in>
-                        {comment}
-                    </Stagger>
-                    <CommentForm dishId={dishId} postComment={postComment} />
+                    <ul class="list-unstyled">
+                        <Stagger in>
+                            {comment}
+                        </Stagger>
+                        <CommentForm dishId={dishId} postComment={postComment} />
+                    </ul>
                 </div>
             );
         else
