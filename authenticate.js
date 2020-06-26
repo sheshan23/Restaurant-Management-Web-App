@@ -50,6 +50,17 @@ exports.verifyAdmin = (req,res,next) => {
     }
 }
 
+exports.verifyUser_NotAdmin = (req,res,next) => {
+    if(req.user.admin) {
+        var err = new Error("You are not authorized to access the favorite list!");
+        err.status = 403;
+        return next(err);
+    }
+    else {
+        return next(err);
+    }
+}
+
 exports.facebookPassport = passport.use(new FacebookTokenStrategy({
     clientID: config.facebook.clientId,
     clientSecret: config.facebook.clientSecret
