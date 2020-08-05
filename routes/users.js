@@ -7,6 +7,7 @@ var router = express.Router();
 
 const bodyParser = require('body-parser');
 var User = require('../models/user');
+var Favorites = require('../models/favorite');
 
 router.use(bodyParser.json());
 
@@ -44,13 +45,25 @@ router.post('/signup', cors.corsWithOptions, (req, res, next) => {
           return ;
         }
         passport.authenticate('local')(req, res, () => {
-          res.statusCode = 200;
-          res.setHeader('Content-Type', 'application/json');
-          res.json({success: true, status: 'Registration Successful!'});
-        });
+          
+        })
+        Favorites.create({user: user._id})
+            .then((favorite) => {
+                favorite.save()
+                .then((favorite) => {
+                    Favorites.findById(favorite._id)
+                    .populate('user')
+                    .populate('dishes')
+                    .then((favorite) => {
+                      res.statusCode = 200;
+                        res.setHeader('Content-Type', 'application/json');
+                        res.json(favorite);
+                    }, (err) => next(err))
+                }, (err) => next(err))
+            },(err) => next(err))
       });
     }
-  });
+  })  
 });
 
 router.post('/login', cors.corsWithOptions, (req, res, next) => {
