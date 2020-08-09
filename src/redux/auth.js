@@ -46,3 +46,31 @@ export const Auth = (state = {
             return state
     }
 }
+
+/* export const Reg = (state = {
+    isLoading: false,
+    isRegistered: false,
+    errMess: null
+}, action) => {
+switch (action.type) {
+    case ActionTypes.REGISTER_REQUEST:
+        return {...state,
+            isLoading: true,
+            isRegistered: false,
+        };
+    case ActionTypes.REGISTER_SUCCESS:
+        return {...state,
+            isLoading: false,
+            isRegistered: true,
+            errMess: '',
+        };
+    case ActionTypes.REGISTER_FAILURE:
+        return {...state,
+            isLoading: false,
+            isRegistered: false,
+            errMess: action.message
+        };
+    default:
+        return state
+}
+} */

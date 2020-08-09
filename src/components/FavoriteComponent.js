@@ -5,20 +5,31 @@ import { baseUrl } from '../shared/baseUrl';
 import { Loading } from './LoadingComponent';
 
 function RenderMenuItem({ dish, deleteFavorite }) {
-    return(
-        <Media tag="li">
-            <Media left middle>
-                <Media object src={baseUrl + dish.image} alt={dish.name} />
+    if(dish){
+        return(
+            <Media tag="li">
+                <Media left middle>
+                    <Media height="250" width="250" object src={baseUrl + dish.image} alt={dish.name} />
+                </Media>
+                <Media body className="ml-5">
+                    <Media heading>{dish.name}</Media>
+                    <p>{dish.description}</p>
+                    <Button outline color="danger" onClick={() => deleteFavorite(dish._id)}>
+                        <span className="fa fa-times"></span>
+                    </Button>
+                </Media>
             </Media>
-            <Media body className="ml-5">
-                <Media heading>{dish.name}</Media>
-                <p>{dish.description}</p>
-                <Button outline color="danger" onClick={() => deleteFavorite(dish._id)}>
-                    <span className="fa fa-times"></span>
-                </Button>
-            </Media>
-        </Media>
-    );
+        );
+    }
+    else{
+        return(
+            <div className="container">
+                <div className="row">
+                    <h4>You have no favorites</h4>
+                </div>
+            </div>
+        );
+    }
 }
 
 const Favorites = (props) => {
@@ -70,15 +81,6 @@ const Favorites = (props) => {
                 </div>
             </div>
         );
-    }
-    else {
-        return(
-            <div className="container">
-                <div className="row">
-                    <h4>You have no favorites</h4>
-                </div>
-            </div>
-        )
     }
 }
 
