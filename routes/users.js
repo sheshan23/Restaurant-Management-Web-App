@@ -37,6 +37,8 @@ router.post('/signup', cors.corsWithOptions, (req, res, next) => {
         user.firstname = req.body.firstname;
       if (req.body.lastname)
         user.lastname = req.body.lastname;
+      if (req.body.admin)
+        user.admin = req.body.admin;
       user.save((err, user) => {
         if (err) {
           res.statusCode = 500;
@@ -45,22 +47,27 @@ router.post('/signup', cors.corsWithOptions, (req, res, next) => {
           return ;
         }
         passport.authenticate('local')(req, res, () => {
-          
+          res.statusCode = 200;
+          res.setHeader('Content-Type', 'application/json');
+          res.json({success: true, status: 'Registration Successful!'});
         })
-        Favorites.create({user: user._id})
-            .then((favorite) => {
-                favorite.save()
-                .then((favorite) => {
-                    Favorites.findById(favorite._id)
-                    .populate('user')
-                    .populate('dishes')
-                    .then((favorite) => {
-                      res.statusCode = 200;
-                        res.setHeader('Content-Type', 'application/json');
-                        res.json(favorite);
-                    }, (err) => next(err))
-                }, (err) => next(err))
-            },(err) => next(err))
+        
+       // if(!user.admin) {
+          Favorites.create({user: user._id})
+          .then((favorite) => {
+              favorite.save()
+              //.then((favorite) => {
+                  //Favorites.findById(favorite._id)
+                  //.populate('user')
+                  //.populate('dishes')
+                  //.then((favorite) => {
+                      //res.statusCode = 200;
+                      //res.setHeader('Content-Type', 'application/json');
+                      //res.json(favorite);
+                  //}, (err) => next(err))
+              //}, (err) => next(err))
+          },(err) => next(err))
+       // }
       });
     }
   })  
