@@ -1,5 +1,6 @@
 import * as ActionTypes from './ActionTypes';
 import { baseUrl } from '../shared/baseUrl';
+import { NavbarText } from 'reactstrap';
 
 export const addComment = (comment) => ({
     type: ActionTypes.ADD_COMMENT,
@@ -215,6 +216,68 @@ export const postFeedback = (feedback) => (dispatch) => {
     .catch(error =>  { console.log('Feedback', error.message); alert('Your feedback could not be posted\nError: '+error.message); });
 };
 
+/* export const requestRegister = (regdetails) => {
+    return {
+        type: ActionTypes.REGISTER_REQUEST,
+        regdetails
+    }
+}
+  
+export const receiveRegister = (response) => {
+    return {
+        type: ActionTypes.REGISTER_SUCCESS,
+        response
+    }
+}
+  
+export const registerError = (message) => {
+    return {
+        type: ActionTypes.REGISTER_FAILURE,
+        message
+    }
+} */
+
+export const registerUser = (regdetails) => (dispatch) => {
+    // We dispatch requestRegister to kickoff the call to the API
+    // dispatch(requestRegister(regdetails))
+
+    return fetch(baseUrl + 'users/signup', {
+        method: 'POST',
+        headers: { 
+            'Content-Type':'application/json' 
+        },
+        body: JSON.stringify(regdetails)
+    })
+    .then(response => {
+        if (response.ok) {
+            return response;
+        } else {
+            var error = new Error(response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+        })
+    .then(response => response.json())
+    .then(response => {
+        if (response.success) {
+            // Dispatch the success action
+            // dispatch(receiveRegister(response));
+            console.log(response);
+            alert(response.status);
+        }
+        else {
+            var error = new Error('Error ' + response.status);
+            error.response = response;
+            throw error;
+        }
+    })
+    //.catch(error => dispatch(registerError(error.message)))
+    .catch(error => {
+        console.log(error.message + '\n UserExistsError \n A user with the given username is already registered'); 
+        alert(error.message + '\n UserExistsError \n A user with the given username is already registered'); 
+    });
+};
+
 export const requestLogin = (creds) => {
     return {
         type: ActionTypes.LOGIN_REQUEST,
@@ -371,7 +434,7 @@ export const fetchFavorites = () => (dispatch) => {
         if (response.ok) {
             return response;
         }
-        else {
+        else {  
             var error = new Error('Error ' + response.status + ': ' + response.statusText);
             error.response = response;
             throw error;
