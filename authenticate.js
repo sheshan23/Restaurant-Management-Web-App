@@ -52,8 +52,9 @@ exports.verifyAdmin = (req,res,next) => {
 
 exports.verifyUser_NotAdmin = (req,res,next) => {
     if(req.user.admin) {
-        var err = new Error("You are not authorized to access the favorite list!");
+        var err = new Error();
         err.status = 403;
+        err.message = "You are not authorized to access the favorite list!";
         return next(err);
     }
     else {
