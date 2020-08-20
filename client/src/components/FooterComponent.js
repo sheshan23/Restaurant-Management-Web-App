@@ -30,7 +30,7 @@ function Footer(props) {
                         <div className="text-center">
                             <a className="btn btn-social-icon btn-facebook" href="https://www.facebook.com/" target="_blank"><i className="fa fa-facebook"></i></a>
                             <a className="btn btn-social-icon btn-linkedin" href="https://www.linkedin.com/in/sheshanpatel23/" target="_blank"><i className="fa fa-linkedin"></i></a>
-                            <a className="btn btn-social-icon btn-github" href="https://github.com/sheshan23/Restaurant-Management-Web-App" target="_blank"><i className="fa fa-github"></i></a>
+                            <a className="btn btn-social-icon btn-github" href="https://github.com/sheshan23/Restaurant-Management-Front-End" target="_blank"><i className="fa fa-github"></i></a>
                             <a className="btn btn-social-icon btn-twitter" href="http://twitter.com/" target="_blank"><i className="fa fa-twitter"></i></a>
                             <a className="btn btn-social-icon btn-google" href="http://youtube.com/" target="_blank"><i className="fa fa-youtube"></i></a>
                             <a className="btn btn-social-icon" href="mailto:indiancuisine@food.ca"><i className="fa fa-envelope-o" target="_blank"></i></a>
