@@ -5,7 +5,7 @@ import { Comments } from './comments';
 import { Promotions } from './promotions';
 import { Leaders } from './leaders';
 import { favorites } from './favorites';
-import { Auth, Reg } from './auth';
+import { Auth } from './auth';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { InitialFeedback } from './forms';
