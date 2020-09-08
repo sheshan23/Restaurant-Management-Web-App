@@ -53,3 +53,9 @@ address{
     transform: translateX(100%);
     transition: all 300ms ease-out;
 }
+
+@media (max-width: 1024px){
+    .navbar-brand {
+        display: none;
+    }
+}
